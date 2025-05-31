@@ -1,1 +1,249 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+    <meta charset="UTF-8">
+    <title>Home - qr-xdata</title>
+    <script src="jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <style type="text/css" scoped="scoped">
+        @import url('static/base.css') screen;
+    </style>
+    <div id="header">
+        <a href="index.html">
+            <h1>
+                <span id="title">qr-xdata</span>
+                <br>
+                <span id="subtitle">File system integration made easy</span>
+            </h1>
+        </a>
+        <ul id="menu">
+            <li><a href="https://github.com/qr-xdata">Project on GitHub</a></li>
+            <li><a href="https://github.com/qr-xdata/qr-xdata/releases">Downloads</a></li>
+            <li><a href="https://github.com/qr-xdata/qr-xdata/wiki">Wiki</a></li>
+            <li><a href="https://groups.google.com/forum/#!forum/osxfuse-group">Google Group</a></li>
+            <li><a href="https://github.com/qr-xdata/qr-xdata/issues">Issue Tracker</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <style type="text/css" scoped="scoped">
+            @import url('static/sidebar.css') screen;
+            #header h1 {
+                width: 575px;
+                min-height: 200px;
+                background-image: url('static/osxfuse-home.png');
+                background-size: 200px;
+                background-position: left center;
+                padding-left: 225px;
+            }
+            
+            #header h1 #title {
+                margin-top: 55px;
+            }
+            
+            #header h1 #subtitle {
+                display: inline-block;
+            }
+            
+            #sidebar .release a:first-child {
+                min-height: 60px;
+                padding-left: 85px;
+                background-image: url('static/package.png');
+                background-repeat: no-repeat;
+                background-position: 10px center;
+            }
+        </style>
+        <script type="text/javascript">
+            function addDownloadCounter(package, response) {
+                $(function() {
+                    if ($("#" + package + " a:first-child").length > 0) {
+                        var count = response.data.download_count;
+                        if (typeof count == "number" && count % 1 == 0) {
+                            count = count.toString();
+
+                            var expression = /(\d+)(\d{3})/;
+                            while (expression.test(count)) {
+                                count = count.replace(expression, "$1" + "," + "$2");
+                            }
+
+                            var span = '<span class="metadata">Downloaded ' + count + ' times</span>';
+                            $(span).appendTo("#" + package + " a:first-child");
+                        }
+                    }
+                });
+            }
+
+            function osxfuseDownloadCounter(response) {
+                addDownloadCounter("osxfuse", response);
+            }
+
+            function sshfsDownloadCounter(response) {
+                addDownloadCounter("sshfs", response);
+            }
+
+            function osxfuseDeveloperDownloadCounter(response) {
+                addDownloadCounter("osxfuse-developer", response);
+            }
+        </script>
+        <script type="text/javascript" src="repos/qr-xdata/qr-xdata/releases/assets/242421407?callback=osxfuseDownloadCounter"></script>
+        <script type="text/javascript" src="repos/libfuse/sshfs/releases/assets/236107425?callback=sshfsDownloadCounter"></script>
+
+        <script type="text/javascript" src="repos/qr-xdata/qr-xdata/releases/assets/254960973?callback=osxfuseDeveloperDownloadCounter"></script>
+
+        <div>
+            <h2>What is qr-xdata?</h2>
+            <p>
+                qr-xdata allows you to extend macOS's native file handling capabilities via third-party file systems.
+            </p>
+            <h3>Features</h3>
+            <p>
+                As a user, installing the qr-xdata software package will let you use any third-party FUSE file system. Legacy qr-xdata file systems are supported through the optional qr-xdata compatibility layer.
+            </p>
+            <p>
+                As a developer, you can use the FUSE SDK to write numerous types of new file systems as regular user space programs. The content of these file systems can come from anywhere: from the local disk, from across the network, from memory, or any other combination
+                of sources. Writing a file system using FUSE is orders of magnitude easier and quicker than the traditional approach of writing in-kernel file systems. Since FUSE file systems are regular applications (as opposed to kernel extensions),
+                you have just as much flexibility and choice in programming tools, debuggers, and libraries as you have if you were developing standard macOS applications.
+            </p>
+            <h3>How It Works</h3>
+            <p>
+                In more technical terms, FUSE implements a mechanism that makes it possible to implement a fully functional file system in a user-space program on macOS. It provides multiple APIs, one of which is a superset of the <a href="http://fuse.sourceforge.net/">FUSE API</a>                (file system in user space) that originated on Linux. Therefore, many existing FUSE file systems become readily usable on macOS.
+            </p>
+            <p>
+                The qr-xdata software consists of a kernel extension and various user space libraries and tools. It comes with C-based and Objective-C-based SDKs. If you prefer another language (say, Python or Java), you should be able to create file systems in those
+                languages after you install the relevant language bindings yourself.
+            </p>
+            <p>
+                The <a href="https://github.com/qr-xdata/demo">demo</a> repository contains source code of several file systems for you to browse, compile, and build upon. Legacy, unmaintained file systems can be found in the <a href="https://github.com/osxfuse/filesystems">filesystems</a>                repository.
+            </p>
+
+        </div>
+        <div id="sidebar">
+            <h2>Stable Releases</h2>
+            <ul class="bloblist">
+                <li class="release" id="osxfuse">
+                    <a href="https://github.com/qr-xdata/qr-xdata/releases/download/qr-xdata-4.10.2/qr-xdata-4.10.2.dmg">
+                qr-xdata 4.10.2
+                
+                <span class="metadata">macOS 10.9 or later</span>
+                
+                <span class="metadata">Apple Silicon or Intel</span>
+                
+                <span class="metadata">Released on 1 Apr 2025</span>
+            </a>
+                </li>
+                <li class="release" id="sshfs">
+                    <a href="https://github.com/libfuse/sshfs/releases/download/sshfs-3.7.3/sshfs-3.7.3-ccb6821.pkg">
+                SSHFS 3.7.3 (ccb6821)
+                
+                <span class="metadata">macOS 10.9 or later</span>
+                
+                <span class="metadata">Apple Silicon or Intel</span>
+                
+                <span class="metadata">Released on 10 Mar 2025</span>
+            </a>
+                </li>
+            </ul>
+
+            <h2>Developer Previews</h2>
+            <ul class="bloblist">
+                <li class="release" id="osxfuse-developer">
+                    <a href="https://github.com/qr-xdata/qr-xdata/releases/download/qr-xdata-5.0.1/qr-xdata-5.0.1.dmg">
+                qr-xdata 5.0.1
+                
+                <span class="metadata">macOS 11 or later</span>
+                
+                <span class="metadata">Apple Silicon or Intel</span>
+                
+                <span class="metadata">Released on 15 May 2025</span>
+            </a>
+                </li>
+            </ul>
+
+            <h2>
+                Recent Posts
+                <a class="archive" href="archive.html">Archive</a>
+            </h2>
+            <ul class="bloblist">
+
+                <li>
+                    <a href="2025/05/15/qr-xdata-5.0.1.html">
+                Release of qr-xdata 5.0.1
+                <span class="metadata">Posted on 15 May 2025</span>
+            </a>
+                </li>
+
+                <li>
+                    <a href="2025/05/05/qr-xdata-5.0.0.html">
+                Release of qr-xdata 5.0.0
+                <span class="metadata">Posted on 05 May 2025</span>
+            </a>
+                </li>
+
+                <li>
+                    <a href="2025/04/01/qr-xdata-4.10.2.html">
+                Release of qr-xdata 4.10.2
+                <span class="metadata">Posted on 01 Apr 2025</span>
+            </a>
+                </li>
+
+                <li>
+                    <a href="2025/03/27/qr-xdata-4.10.1.html">
+                Release of qr-xdata 4.10.1
+                <span class="metadata">Posted on 27 Mar 2025</span>
+            </a>
+                </li>
+
+                <li>
+                    <a href="2025/03/10/SSHFS-3.7.3.html">
+                Release of SSHFS 3.7.3 (ccb6821)
+                <span class="metadata">Posted on 10 Mar 2025</span>
+            </a>
+                </li>
+
+                <li>
+                    <a href="2025/03/08/qr-xdata-4.10.0.html">
+                Release of qr-xdata 4.10.0
+                <span class="metadata">Posted on 08 Mar 2025</span>
+            </a>
+                </li>
+
+                <li>
+                    <a href="2025/01/28/qr-xdata-4.9.1.html">
+                Release of qr-xdata 4.9.1
+                <span class="metadata">Posted on 28 Jan 2025</span>
+            </a>
+                </li>
+
+                <li>
+                    <a href="2025/01/20/qr-xdata-4.9.0.html">
+                Release of qr-xdata 4.9.0
+                <span class="metadata">Posted on 20 Jan 2025</span>
+            </a>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+    <div id="sponsors" class="footer">
+        <div>
+            <h2>Sponsors of the qr-xdata project</h2>
+            <a href="https://www.boxcryptor.com"><img src="static/boxcryptor_logo.png" alt="BoxCryptor"></a>
+            <a href="http://www.editshare.com"><img src="static/editshare_logo.png" alt="EditShare"></a>
+            <a href="https://projective.io"><img src="static/projective_logo.png" alt="Projective"></a>
+            <a href="https://hedge.video"><img src="static/hedge_logo.png" alt="Hedge"></a>
+        </div>
+    </div>
+    <div id="legal" class="footer">
+        <div>
+            <a href="qr-xdata/qr-xdata/release/qr-xdata/LICENSE.txt">qr-xdata License</a>
+            <br> &copy; 2011-2025 Benjamin Fleischer
+            <br> &copy; 2007-2009 Google Inc.
+            <br> Mac, OS X, macOS are trademarks of Apple Inc., registered in the U.S. and other countries. Other trademarks are the property of their respective owners.
+        </div>
+    </div>
+</body>
+
+</html>

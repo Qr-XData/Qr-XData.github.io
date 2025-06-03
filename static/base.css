@@ -46,7 +46,7 @@
 #header h1 #title {
     display: inline-block;
 
-    margin-top: 5px;
+    margin-top: 1px;
 
     font-family: helvetica, arial, sans-serif;
     font-size: 40px;
@@ -60,7 +60,7 @@
     display: none;
 
     font-family: helvetica, arial, sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     font-weight: 200;
     color: #FFFFFF;
 
